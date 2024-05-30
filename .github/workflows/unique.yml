@@ -28,5 +28,4 @@ jobs:
       env:
         REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
       run: |
-        git remote set-url origin https://x-access-token:${{ secrets.REPO_TOKEN }}@github.com/${{ github.repository }}
         git push origin main
