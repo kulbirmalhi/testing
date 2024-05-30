@@ -1,0 +1,29 @@
+name: Add Checksums
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  add-checksum:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Generate checksums
+      run: |
+        find . -type f ! -name '*.sha256' ! -path './.git/*' -exec sha256sum {} + > checksums.sha256
+
+    - name: Commit checksums
+      run: |
+        git config --global user.name 'github-actions'
+        git config --global user.email 'github-actions@github.com'
+        git add checksums.sha256
+        git commit -m "Add checksums for files" || echo "No changes to commit"
+
+    - name: Push changes
+      run: |
+        git push origin main
