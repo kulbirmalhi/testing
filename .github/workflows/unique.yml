@@ -25,5 +25,8 @@ jobs:
         git commit -m "Add checksums for files" || echo "No changes to commit"
 
     - name: Push changes
+      env:
+        GH_PAT: ${{ secrets.REPO_TOKEN }}
       run: |
+        git remote set-url origin https://x-access-token:${REPO_TOKEN}@github.com/${{ github.repository }}
         git push origin main
