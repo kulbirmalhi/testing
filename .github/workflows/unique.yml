@@ -26,7 +26,7 @@ jobs:
 
     - name: Push changes
       env:
-        GH_PAT: ${{ secrets.REPO_TOKEN }}
+        REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
       run: |
         git remote set-url origin https://x-access-token:${REPO_TOKEN}@github.com/${{ github.repository }}
         git push origin main
